@@ -1,0 +1,291 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+/* Variables */
+:root {
+  --color1: #ff00ea;
+  --color2: #0008ff;
+  --color3: #ff0000;
+  --color4: #5401fc;
+  --color-animation: color1;
+  --color-page: #1c0631;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Global Styles */
+html,
+body,
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Layout */
+.wrapper {
+  display: flex;
+  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  background-color: var(--color-page);
+  overflow: hidden;
+}
+
+.header {
+  display: block;
+  margin: 0 auto 30px;
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 30px;
+  font-weight: 200;
+  color: #fff;
+}
+.header p {
+  text-align: center;
+  margin: 5px;
+}
+
+/* Sphere Styles */
+.sphere {
+  position: relative;
+  z-index: 1;
+  width: 95%;
+  max-width: 300px;
+  max-height: 300px;
+  flex: 0 0 300px;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 3px 100px rgba(255, 255, 255, 0.4), inset 0 0 25px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: sphereGlow 0.3s 1 linear;
+}
+@media (width > 409px) {
+  .sphere {
+    max-width: 400px;
+    max-height: 400px;
+    flex: 0 0 400px;
+  }
+}
+
+#shineSphere {
+  position: absolute;
+  margin: -100px auto auto -5px;
+  width: 500px;
+  height: 500px;
+}
+
+/* Color Elements */
+.color {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: animation_1 8s infinite linear,
+             var(--color-animation) 32s infinite alternate;
+}
+
+.rot90 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(90deg);
+}
+
+.color2 {
+  --color-animation: color2;
+}
+
+.color3 {
+  --color-animation: color3;
+}
+
+.color4 {
+  --color-animation: color4;
+}
+
+/* Shine Effects */
+.shine {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  fill: #fff;
+  width: 10px;
+  height: 10px;
+}
+
+#shineSphere .shine {
+  display: block;
+  opacity: 0;
+  animation: shine 0.5s 2 alternate;
+}
+
+/* Decision Elements */
+.decision {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+  height: 100%;
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Yusei Magic", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  font-style: normal;
+}
+
+#decision span {
+  opacity: 0;
+  animation: none;
+}
+
+#decision .decisionShow {
+  animation: decisionShow 1s 1 linear forwards;
+}
+
+#decisionButton {
+  z-index: 1;
+  margin: 50px 0 0;
+  padding: 20px;
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 20px;
+  font-weight: 200;
+  border: none;
+  border-radius: 20px;
+  background-color: #b150b7;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: inset 0 0 10px 10px rgba(255,255,255,0.2);
+}
+
+#decisionButton:hover {
+  background-color: #df68e7;
+}
+
+#decisionButton:active {
+  transform: scale(0.97);
+}
+
+.art {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 200px;
+  fill: rgba(255,255,255,0.2);
+  stroke:rgba(255,255,255,0.2);
+  stroke-linecap:round;
+  transform: translate(-50%, 0);
+}
+
+.art_eye {
+
+}
+
+.art_element.fire #line, .air_element.water #line {
+  display: none;
+}
+
+.art_element.earth, .art_element.water {
+  top: 20px;
+  transform: rotate(180deg) translate(50%);
+}
+
+.art_element.air, .art_element.fire {
+  top: -20px;
+}
+
+/* Animations */
+@keyframes sphereGlow {
+  0% {
+    background-color: var(--color-page);
+    box-shadow: 0 3px 100px rgba(255, 255, 255, 0), inset 0 0 25px rgba(0, 0, 0, 0);
+    transform: scale(0.8);
+  }
+  100% {
+    background-color: rgba(255,255,255,1);
+    box-shadow: 0 3px 100px rgba(255, 255, 255, 0.4), inset 0 0 25px rgba(0, 0, 0, 0.4);
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(200px);
+  }
+  100% {
+    opacity: 0.5;
+    filter: blur(50px);
+  }
+}
+
+@keyframes animation_1 {
+  0% { left: -35%; top: -35%; }
+  25% { top: -35%; left: 35%; }
+  50% { top: 35%; left: 35%; }
+  75% { top: 35%; left: -35%; }
+  100% { top: -35%; left: -35%; }
+}
+
+@keyframes color1 {
+  0% { background-color: var(--color1); }
+  25% { background-color: var(--color2); }
+  50% { background-color: var(--color3); }
+  75% { background-color: var(--color4); }
+  100% { background-color: var(--color1); }
+}
+
+@keyframes color2 {
+  0% { background-color: var(--color4); }
+  25% { background-color: var(--color1); }
+  50% { background-color: var(--color2); }
+  75% { background-color: var(--color3); }
+  100% { background-color: var(--color4); }
+}
+
+@keyframes color3 {
+  0% { background-color: var(--color3); }
+  25% { background-color: var(--color4); }
+  50% { background-color: var(--color1); }
+  75% { background-color: var(--color2); }
+  100% { background-color: var(--color3); }
+}
+
+@keyframes color4 {
+  0% { background-color: var(--color2); }
+  25% { background-color: var(--color3); }
+  50% { background-color: var(--color4); }
+  75% { background-color: var(--color1); }
+  100% { background-color: var(--color2); }
+}
+
+@keyframes shine {
+  0% { opacity: 0; }
+  100% { opacity: 0.4; transform: scale(1.1); }
+}
+
+@keyframes decisionShow {
+  0% {
+    opacity: 0;
+    transform: scale(0) skew(20deg, 20deg) rotate(-400deg);
+  }
+  50% {
+    transform: scale(0.5) skew(-20deg, -20deg) rotate(-200deg);
+  }
+  100% {
+    transform: scale(1) skew(0) rotate(0);
+    opacity: 1;
+  }
+}
