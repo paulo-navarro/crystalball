@@ -10,18 +10,25 @@ const DECISION_DURATION = 10000
 function Crystalball() {
 
    const [decision, setDecision] = useState('')
+   const [decisionType, setDecisionType] = useState('positive')
    const sphereRef = useRef(null)
    const shineModelRef = useRef(null)
   
     const hideDecision = () => {
         setDecision('')
-        console.log("Decision hidden")
-        void decision.offsetWidth
     }
 
     const decide = () => {
-      const generateRand = Math.round(Math.floor(Math.random() * 301)) -1
-      setDecision(messages[generateRand])
+        const generateRand = Math.round(Math.floor(Math.random() * 301)) -1
+        if (generateRand < 100) setDecisionType('positive')
+        if (generateRand >= 100 && generateRand < 200) setDecisionType('neutral')
+        if (generateRand >= 200) setDecisionType('negative')
+
+        const messageRage = messages[decisionType]
+        const messageRand = Math.floor(Math.random() * messageRage.length) -1
+
+        setDecision(messages[decisionType][messageRand])
+        console.log(generateRand, decisionType, messageRand, messages[decisionType][messageRand])
 
       setTimeout(() => { hideDecision() }, DECISION_DURATION)
     }

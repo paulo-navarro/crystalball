@@ -407,4 +407,4 @@ const answers = {
     ]
 }
 
-export default [ ...answers.positive, ...answers.negative, ...answers.neutral ]
+export default answers
