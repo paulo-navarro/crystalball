@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import { useTranslation } from 'react-i18next';
 import LightRays from "./components/LightRays/LightRays"
 import "./crystalball.css"
 import RandomArt from "./components/RandomArt/RandomArt"
@@ -10,27 +11,29 @@ const DECISION_DURATION = 10000
 function Crystalball() {
 
    const [decision, setDecision] = useState('')
-   const [decisionType, setDecisionType] = useState('positive')
+   const [decisionType, setDecisionType] = useState(null)
    const sphereRef = useRef(null)
    const shineModelRef = useRef(null)
-  
-    const hideDecision = () => {
-        setDecision('')
-    }
+    const { t } = useTranslation('crystalball')
 
     const decide = () => {
-        const generateRand = Math.round(Math.floor(Math.random() * 301)) -1
-        if (generateRand < 100) setDecisionType('positive')
-        if (generateRand >= 100 && generateRand < 200) setDecisionType('neutral')
-        if (generateRand >= 200) setDecisionType('negative')
-
-        const messageRage = messages[decisionType]
-        const messageRand = Math.floor(Math.random() * messageRage.length) -1
-
-        setDecision(messages[decisionType][messageRand])
-        console.log(generateRand, decisionType, messageRand, messages[decisionType][messageRand])
-
-      setTimeout(() => { hideDecision() }, DECISION_DURATION)
+        if (decision !== '') {
+            setDecision('')
+            setDecisionType(null)
+            return
+        }
+        const generateRand = Math.round(Math.floor(Math.random() * 301)) - 1
+        let newDecisionType = 'positive'
+    
+        if (generateRand < 100) newDecisionType = 'positive'
+        if (generateRand >= 100 && generateRand < 200) newDecisionType = 'neutral'
+        if (generateRand >= 200) newDecisionType = 'negative'
+    
+        const messageRage = messages[newDecisionType]
+        const messageRand = Math.floor(Math.random() * messageRage.length) - 1
+    
+        setDecisionType(newDecisionType)
+        setDecision(messageRage[messageRand])
     }
 
     useEffect(() => {
@@ -54,32 +57,38 @@ function Crystalball() {
 
         return () => clearInterval(intervalId)
 
-    }, [sphereRef, shineModelRef])
+    }, [sphereRef, shineModelRef, decisionType])
 
     return (
     <>
-        <div className="wrapper">
+        <div className={`wrapper ${decisionType}`}>
             <div className="header">
-            <p>Think deeply about a question</p>
+            <p>{t('instructions')}</p>
             </div>
-            <div id="sphere" className="sphere">
-            <div className="color color1"></div>
-            <div className="rot90">
-                <div className="color color2"></div>
-                <div className="rot90">
-                <div className="color color3"></div>
-                <div className="rot90">
-                    <div className="color color4"></div>
+            <div id="sphere" className="sphere" onClick={decide}>
+                { decision !== '' && <>
+                    <div className="color color1"></div>
+                    <div className="rot90">
+                        <div className="color color2"></div>
+                        <div className="rot90">
+                            <div className="color color3"></div>
+                            <div className="rot90">
+                                <div className="color color4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </>}
+                <div id="decision" className="decision">
+                    <span className={decision !== "" ? 'decisionShow': ''}>{decision}
+                    <br/> {`(${decisionType})`}</span>
                 </div>
+                { decision === "" && <RandomArt duration={2000} /> }
                 </div>
-            </div>
-            <div id="decision" className="decision">
-                <span className={decision !== "" ? 'decisionShow': ''}>{decision}</span>
-            </div>
-            { decision === "" && <RandomArt duration={2000} /> }
-            </div>
-            <div id="shineSphere" ref={sphereRef}></div>
-            <LightRays />
+            { decisionType === 'positive' && <>
+                <div id="shineSphere" ref={sphereRef}></div>
+                <LightRays />
+            </> }
+
             <Shine ref={shineModelRef} />
             <button id="decisionButton" onClick={decide}>
                 Click here to know the answer!

@@ -9,6 +9,8 @@
   --color4: #5401fc;
   --color-animation: color1;
   --color-page: #1c0631;
+  --color-sphere-background: #000;
+  --color-decision-text: #fff;
   overflow: hidden;
   width: 100%;
 }
@@ -35,6 +37,33 @@ body,
   flex-flow: column;
   background-color: var(--color-page);
   overflow: hidden;
+  transition-duration: 2s;
+}
+
+.wrapper.positive {
+  --color-sphere-background: #fff;
+}
+
+.wrapper.neutral {
+  --color1: #dcdcdc;
+  --color2: #c0c0c0; 
+  --color3: #a8a8a8;
+  --color4: #f0f0f0;
+  --color-animation: color1;
+  --color-page: #e8e8e8;
+  --color-sphere-background: #d0d0d0;
+  --color-decision-text: #888888;
+}
+
+.wrapper.negative {
+  --color1: #013220;
+  --color2: #004d00;
+  --color3: #228b22;
+  --color4: #001a00;
+  --color-animation: color1;
+  --color-page: #1a001f;
+  --color-sphere-background: #002b1a;
+  --color-decision-text: #00ff00;
 }
 
 .header {
@@ -58,11 +87,14 @@ body,
   max-width: 300px;
   max-height: 300px;
   flex: 0 0 300px;
-  background-color: #fff;
+  color: var(--color-decision-text);
+  background-color: var(--color-sphere-background);
   border-radius: 100%;
   box-shadow: 0 3px 100px rgba(255, 255, 255, 0.4), inset 0 0 25px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  animation: sphereGlow 0.3s 1 linear;
+  transform: scale(0.8);
+  transition-duration: 2s;
+  animation: none
 }
 @media (width > 409px) {
   .sphere {
@@ -70,6 +102,13 @@ body,
     max-height: 400px;
     flex: 0 0 400px;
   }
+}
+.wrapper.positive .sphere,
+.wrapper.neutral .sphere,
+.wrapper.negative .sphere {
+  transform: scale(1);
+  transition-duration: 2s;
+  animation: sphereGlow 0.3s 1 linear;
 }
 
 #shineSphere {
@@ -87,6 +126,7 @@ body,
   opacity: 0.5;
   border-radius: 50%;
   filter: blur(50px);
+  transition-duration: 2s;
   animation: animation_1 8s infinite linear,
              var(--color-animation) 32s infinite alternate;
 }
@@ -211,12 +251,10 @@ body,
   0% {
     background-color: var(--color-page);
     box-shadow: 0 3px 100px rgba(255, 255, 255, 0), inset 0 0 25px rgba(0, 0, 0, 0);
-    transform: scale(0.8);
   }
   100% {
     background-color: rgba(255,255,255,1);
     box-shadow: 0 3px 100px rgba(255, 255, 255, 0.4), inset 0 0 25px rgba(0, 0, 0, 0.4);
-    transform: scale(1);
   }
 }
 
