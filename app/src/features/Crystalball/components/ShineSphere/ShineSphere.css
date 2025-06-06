@@ -1,0 +1,27 @@
+
+    .shine {
+        position: absolute;
+        z-index: 2;
+        display: none;
+        fill: #fff;
+        width: 10px;
+        height: 10px;
+    }
+
+    #shineSphere {
+        position: absolute;
+        margin: -100px auto auto -5px;
+        width: 500px;
+        height: 500px;
+    }
+  
+    #shineSphere .shine {
+        display: block;
+        opacity: 0;
+        animation: shine 0.5s 2 alternate;
+    }
+
+    @keyframes shine {
+        0% { opacity: 0; }
+        100% { opacity: 0.4; transform: scale(1.1); }
+    }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import ElementalArt from '../ElementalArt/ElementalArt'
 import EyeArt from '../EyeArt/EyeArt'
+import './RandomArt.css'
 
 function RandomArt({duration}) {
 
@@ -11,15 +12,15 @@ function RandomArt({duration}) {
             const generateRand = Math.round(Math.floor(Math.random() * 6));
             
             if (generateRand === 0) {
-                setArt('eye');
+                setArt('eye')
             } else if (generateRand === 1) {
-                setArt('earth');
+                setArt('earth')
             } else if (generateRand === 2) {
-                setArt('fire');
+                setArt('fire')
             } else if (generateRand === 3) {
-                setArt('water');
+                setArt('water')
             } else if (generateRand === 4) {
-                setArt('air');
+                setArt('air')
             }
         }, duration)
 

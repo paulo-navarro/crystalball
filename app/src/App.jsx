@@ -1,4 +1,4 @@
-import Crystalball from './features/crystalball/crystalball'
+import Crystalball from './features/Crystalball/Crystalball'
 
 function App() {
 

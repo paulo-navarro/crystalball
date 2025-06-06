@@ -76,7 +76,7 @@ body,
 }
 .header p {
   text-align: center;
-  margin: 5px;
+  margin: 15px;
 }
 
 /* Sphere Styles */
@@ -111,13 +111,6 @@ body,
   animation: sphereGlow 0.3s 1 linear;
 }
 
-#shineSphere {
-  position: absolute;
-  margin: -100px auto auto -5px;
-  width: 500px;
-  height: 500px;
-}
-
 /* Color Elements */
 .color {
   position: absolute;
@@ -150,22 +143,6 @@ body,
   --color-animation: color4;
 }
 
-/* Shine Effects */
-.shine {
-  position: absolute;
-  z-index: 2;
-  display: none;
-  fill: #fff;
-  width: 10px;
-  height: 10px;
-}
-
-#shineSphere .shine {
-  display: block;
-  opacity: 0;
-  animation: shine 0.5s 2 alternate;
-}
-
 /* Decision Elements */
 .decision {
   position: relative;
@@ -194,7 +171,7 @@ body,
 
 #decisionButton {
   z-index: 1;
-  margin: 50px 0 0;
+  margin: 50px 15px 0;
   padding: 20px;
   font-family: "Yusei Magic", sans-serif;
   font-size: 20px;
@@ -213,37 +190,6 @@ body,
 
 #decisionButton:active {
   transform: scale(0.97);
-}
-
-.art {
-  display: block;
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  left: 50%;
-  height: 100%;
-  width: 200px;
-  fill: rgba(255,255,255,0.2);
-  stroke:rgba(255,255,255,0.2);
-  stroke-linecap:round;
-  transform: translate(-50%, 0);
-}
-
-.art_eye {
-
-}
-
-.art_element.fire #line, .air_element.water #line {
-  display: none;
-}
-
-.art_element.earth, .art_element.water {
-  top: 20px;
-  transform: rotate(180deg) translate(50%);
-}
-
-.art_element.air, .art_element.fire {
-  top: -20px;
 }
 
 /* Animations */
@@ -307,11 +253,6 @@ body,
   50% { background-color: var(--color4); }
   75% { background-color: var(--color1); }
   100% { background-color: var(--color2); }
-}
-
-@keyframes shine {
-  0% { opacity: 0; }
-  100% { opacity: 0.4; transform: scale(1.1); }
 }
 
 @keyframes decisionShow {

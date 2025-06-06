@@ -1,3 +1,7 @@
 {
-    "instructions": "Think deeply about a question"
+    "instructions": "Think deeply about a question",
+    "resetButton": "Click here to know the answer!",
+    "positive": "yes",
+    "neutral": "maybe",
+    "negative": "no"
 }

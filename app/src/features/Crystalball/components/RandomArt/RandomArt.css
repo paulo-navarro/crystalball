@@ -1,0 +1,32 @@
+
+
+.art {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 200px;
+    fill: rgba(255,255,255,0.2);
+    stroke:rgba(255,255,255,0.2);
+    stroke-linecap:round;
+    transform: translate(-50%, 0);
+  }
+  
+  .art_eye {
+  
+  }
+  
+  .art_element.fire #line, .air_element.water #line {
+    display: none;
+  }
+  
+  .art_element.earth, .art_element.water {
+    top: 20px;
+    transform: rotate(180deg) translate(50%);
+  }
+  
+  .art_element.air, .art_element.fire {
+    top: -20px;
+  }
