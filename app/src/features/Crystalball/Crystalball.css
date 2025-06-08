@@ -8,9 +8,10 @@
   --color3: #ff0000;
   --color4: #5401fc;
   --color-animation: color1;
-  --color-page: #1c0631;
+  --color-page: #000000;
   --color-sphere-background: #000;
   --color-decision-text: #fff;
+  transition-duration: 2s;
   overflow: hidden;
   width: 100%;
 }
@@ -41,21 +42,31 @@ body,
 }
 
 .wrapper.positive {
-  --color-sphere-background: #fff;
+  --color1: #ff00ea;
+  --color2: #0008ff;
+  --color3: #ff0000;
+  --color4: #5401fc;
+  --color-animation: color1;
+  --color-page: #1c0631;
+  --color-sphere-background: #fffefe;
+  --color-decision-text: #fff;
+  transition-duration: 2s;
 }
 
 .wrapper.neutral {
+  transition-duration: 2s;
   --color1: #dcdcdc;
   --color2: #c0c0c0; 
   --color3: #a8a8a8;
   --color4: #f0f0f0;
   --color-animation: color1;
-  --color-page: #e8e8e8;
+  --color-page: #000000;
   --color-sphere-background: #d0d0d0;
-  --color-decision-text: #888888;
+  --color-decision-text: #000000;
 }
 
 .wrapper.negative {
+  transition-duration: 2s;
   --color1: #013220;
   --color2: #004d00;
   --color3: #228b22;
@@ -77,6 +88,12 @@ body,
 .header p {
   text-align: center;
   margin: 15px;
+  opacity: 0;
+  transition-duration: 2s;
+}
+.header p.show {
+  opacity: 1;
+  transition-duration: 2s;
 }
 
 /* Sphere Styles */
@@ -147,6 +164,7 @@ body,
 .decision {
   position: relative;
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   z-index: 4;
@@ -169,6 +187,11 @@ body,
   animation: decisionShow 1s 1 linear forwards;
 }
 
+#decision .decisionTypeShow {
+  margin-top: 15px;
+  animation: decisionTypeShow 0.5s 1s 1 linear forwards;
+}
+
 #decisionButton {
   z-index: 1;
   margin: 50px 15px 0;
@@ -182,6 +205,18 @@ body,
   color: #fff;
   cursor: pointer;
   box-shadow: inset 0 0 10px 10px rgba(255,255,255,0.2);
+  opacity: 0;
+  transition-duration: 2s;
+}
+
+.wrapper.neutral #decisionButton {
+  background-color: var(--color-sphere-background);
+  color: var(--color-decision-text);
+}
+
+#decisionButton.show {
+  opacity: 1;
+  transition-duration: 2s;
 }
 
 #decisionButton:hover {
@@ -258,13 +293,26 @@ body,
 @keyframes decisionShow {
   0% {
     opacity: 0;
+    margin-top: 50px;
     transform: scale(0) skew(20deg, 20deg) rotate(-400deg);
   }
   50% {
     transform: scale(0.5) skew(-20deg, -20deg) rotate(-200deg);
   }
   100% {
+    margin-top: 0;
     transform: scale(1) skew(0) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes decisionTypeShow {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
     opacity: 1;
   }
 }

@@ -1,13 +1,14 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import Shine from "../Shine/Shine"
 import "./ShineSphere.css"
 
-function ShineSphere() {
+function ShineSphere({show}) {
 
     const sphereRef = useRef(null)
     const shineModelRef = useRef(null)
 
     useEffect(() => {
+
         const sphere = sphereRef.current
         const shineModel = shineModelRef.current
 
@@ -22,17 +23,17 @@ function ShineSphere() {
         }
         const intervalId = setInterval(() => {
             for(let i = 0; i < 8; i++) {
-                addShine()
+                if (show) addShine()
             }
         }, 300)
 
         return () => clearInterval(intervalId)
 
-    }, [sphereRef, shineModelRef])
+    }, [sphereRef, shineModelRef, show])
 
     return (
         <>
-            <div id="shineSphere" ref={sphereRef}></div>
+            <div id="shineSphere" className={show ? 'show' : ''} ref={sphereRef}></div>
             <Shine ref={shineModelRef} />
         </>
     )

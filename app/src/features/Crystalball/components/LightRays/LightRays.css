@@ -2,12 +2,20 @@
 #lightRays {
   position: absolute;
   z-index: 0;
-  margin: -100px auto auto -5px;
+  margin: 50px auto auto -5px;
   width: 200%;
   height: 200%;
   fill: #fff;
-  animation: rotate 60s infinite linear;
+  opacity: 0;
+  transition-duration: 2s;
+  animation: none;
   overflow: hidden;
+  animation: rotate 60s infinite linear;
+}
+
+#lightRays.show {
+  opacity: 1;
+  transition-duration: 2s;
 }
 
 @keyframes rotate {

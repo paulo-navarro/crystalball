@@ -1,6 +1,6 @@
 {
-    "instructions": "Pense profundamente sobre uma pergunta",
-    "resetButton": "Clique aqui para saber a resposta!",
+    "instructions": "Pense profundamente sobre uma pergunta, clique na bola mágica",
+    "resetButton": "Tente novamente",
     "positive": "sim",
     "neutral": "talvez",
     "negative": "não"

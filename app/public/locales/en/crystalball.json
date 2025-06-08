@@ -1,6 +1,6 @@
 {
-    "instructions": "Think deeply about a question",
-    "resetButton": "Click here to know the answer!",
+    "instructions": "Think deeply about a question, then click the magic ball",
+    "resetButton": "Try again",
     "positive": "yes",
     "neutral": "maybe",
     "negative": "no"

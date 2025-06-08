@@ -13,6 +13,10 @@
         margin: -100px auto auto -5px;
         width: 500px;
         height: 500px;
+        opacity: 0;
+    }
+    #shineSphere.show {
+        animation: show 2s 1 linear forwards;
     }
   
     #shineSphere .shine {
@@ -25,3 +29,8 @@
         0% { opacity: 0; }
         100% { opacity: 0.4; transform: scale(1.1); }
     }
+
+    @keyframes show {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useTranslation } from 'react-i18next'
 import LightRays from "./components/LightRays/LightRays"
 import RandomArt from "./components/RandomArt/RandomArt"
@@ -22,6 +22,9 @@ function Crystalball() {
     const { t: positiveMessagesT } = useTranslation('positive-messages')
     const { t: neutralMessagesT } = useTranslation('neutral-messages')
     const { t: negativeMessagesT } = useTranslation('negative-messages')
+
+    const isPositive = useMemo(() => decisionType === 'positive', [decisionType])
+    const isDecided = useMemo(() => !!decisionType, [decisionType])
 
     const decide = () => {
         if (decision !== '') {
@@ -50,10 +53,10 @@ function Crystalball() {
     <>
         <div className={`wrapper ${decisionType}`}>
             <div className="header">
-            <p>{t('instructions')}</p>
+                <p className={ !isDecided ? 'show' : ''}>{t('instructions')}</p>
             </div>
             <div id="sphere" className="sphere" onClick={decide}>
-                { decision !== '' && <>
+                { isPositive && <>
                     <div className="color color1"></div>
                     <div className="rot90">
                         <div className="color color2"></div>
@@ -66,17 +69,16 @@ function Crystalball() {
                     </div>
                 </>}
                 <div id="decision" className="decision">
-                    <span className={decision !== "" ? 'decisionShow': ''}>{decision}
-                    <br/> {`(${t(decisionType)})`}</span>
+                    <span className={isDecided ? 'decisionShow': ''}>{decision}</span>
+                    <span className={isDecided ? 'decisionTypeShow': ''}>{`(${t(decisionType)})`}</span>
                 </div>
-                { decision === "" && <RandomArt duration={2000} /> }
+                { !isDecided && <RandomArt duration={2000} /> }
                 </div>
-            { decisionType === 'positive' && <>
-                <ShineSphere />
-                <LightRays />
-            </> }
 
-            <button id="decisionButton" onClick={decide}>
+                <ShineSphere show={isPositive}/>
+                <LightRays show={isPositive} />
+
+            <button id="decisionButton" className={ isDecided ? 'show' : ''} onClick={decide}>
                 {t('resetButton')}
             </button>
         </div>

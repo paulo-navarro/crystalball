@@ -1,8 +1,8 @@
 import "./LightRays.css"
 
-function LightRays() {
+function LightRays({show}) {
     return (
-        <svg id="lightRays" viewBox="0 0 132.29166 132.29167" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg id="lightRays" className={show ? 'show' : ''} viewBox="0 0 132.29166 132.29167" xmlnsXlink="http://www.w3.org/1999/xlink">
             <linearGradient
                 inkscape:collect="always"
                 id="linearGradient825">
