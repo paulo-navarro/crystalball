@@ -3,11 +3,6 @@
 
 /* Variables */
 :root {
-  --color1: #ff00ea;
-  --color2: #0008ff;
-  --color3: #ff0000;
-  --color4: #5401fc;
-  --color-animation: color1;
   --color-page: #000000;
   --color-sphere-background: #000;
   --color-decision-text: #fff;
@@ -41,39 +36,26 @@ body,
   transition-duration: 2s;
 }
 
-.wrapper.positive {
-  --color1: #ff00ea;
-  --color2: #0008ff;
-  --color3: #ff0000;
-  --color4: #5401fc;
-  --color-animation: color1;
-  --color-page: #1c0631;
-  --color-sphere-background: #fffefe;
-  --color-decision-text: #fff;
+.wrapper .sphere {
   transition-duration: 2s;
+}
+
+.wrapper.positive {
+  background-color: #1c0631;
+  transition-duration: 2s;
+  --color-page: #1c0631;
+  --color-decision-text: #fff;
 }
 
 .wrapper.neutral {
   transition-duration: 2s;
-  --color1: #dcdcdc;
-  --color2: #c0c0c0; 
-  --color3: #a8a8a8;
-  --color4: #f0f0f0;
-  --color-animation: color1;
+  background-color: #000000;
   --color-page: #000000;
-  --color-sphere-background: #d0d0d0;
   --color-decision-text: #000000;
 }
 
 .wrapper.negative {
-  transition-duration: 2s;
-  --color1: #013220;
-  --color2: #004d00;
-  --color3: #228b22;
-  --color4: #001a00;
-  --color-animation: color1;
   --color-page: #1a001f;
-  --color-sphere-background: #002b1a;
   --color-decision-text: #00ff00;
 }
 
@@ -89,10 +71,12 @@ body,
   text-align: center;
   margin: 15px;
   opacity: 0;
+  transform: scale(0);
   transition-duration: 2s;
 }
 .header p.show {
   opacity: 1;
+  transform: scale(1);
   transition-duration: 2s;
 }
 
@@ -105,7 +89,7 @@ body,
   max-height: 300px;
   flex: 0 0 300px;
   color: var(--color-decision-text);
-  background-color: var(--color-sphere-background);
+  background-color: #000;
   border-radius: 100%;
   box-shadow: 0 3px 100px rgba(255, 255, 255, 0.4), inset 0 0 25px rgba(0, 0, 0, 0.4);
   overflow: hidden;
@@ -120,44 +104,21 @@ body,
     flex: 0 0 400px;
   }
 }
-.wrapper.positive .sphere,
-.wrapper.neutral .sphere,
-.wrapper.negative .sphere {
+.sphere.positive,
+.sphere.neutral,
+.sphere.negative {
   transform: scale(1);
   transition-duration: 2s;
   animation: sphereGlow 0.3s 1 linear;
 }
 
-/* Color Elements */
-.color {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  border-radius: 50%;
-  filter: blur(50px);
+.sphere.neutral {
   transition-duration: 2s;
-  animation: animation_1 8s infinite linear,
-             var(--color-animation) 32s infinite alternate;
+  background-color: #d0d0d0;
 }
-
-.rot90 {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transform: rotate(90deg);
-}
-
-.color2 {
-  --color-animation: color2;
-}
-
-.color3 {
-  --color-animation: color3;
-}
-
-.color4 {
-  --color-animation: color4;
+.sphere.negative {
+  transition-duration: 2s;
+  background-color: #002b1a;
 }
 
 /* Decision Elements */
@@ -248,46 +209,6 @@ body,
     opacity: 0.5;
     filter: blur(50px);
   }
-}
-
-@keyframes animation_1 {
-  0% { left: -35%; top: -35%; }
-  25% { top: -35%; left: 35%; }
-  50% { top: 35%; left: 35%; }
-  75% { top: 35%; left: -35%; }
-  100% { top: -35%; left: -35%; }
-}
-
-@keyframes color1 {
-  0% { background-color: var(--color1); }
-  25% { background-color: var(--color2); }
-  50% { background-color: var(--color3); }
-  75% { background-color: var(--color4); }
-  100% { background-color: var(--color1); }
-}
-
-@keyframes color2 {
-  0% { background-color: var(--color4); }
-  25% { background-color: var(--color1); }
-  50% { background-color: var(--color2); }
-  75% { background-color: var(--color3); }
-  100% { background-color: var(--color4); }
-}
-
-@keyframes color3 {
-  0% { background-color: var(--color3); }
-  25% { background-color: var(--color4); }
-  50% { background-color: var(--color1); }
-  75% { background-color: var(--color2); }
-  100% { background-color: var(--color3); }
-}
-
-@keyframes color4 {
-  0% { background-color: var(--color2); }
-  25% { background-color: var(--color3); }
-  50% { background-color: var(--color4); }
-  75% { background-color: var(--color1); }
-  100% { background-color: var(--color2); }
 }
 
 @keyframes decisionShow {

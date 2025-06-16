@@ -1,0 +1,90 @@
+
+.SpherePositiveEffect {
+    opacity: 0;
+    position: absolute;
+    transition-duration: 2s;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    --colorPositive1: #ff00ea;
+    --colorPositive2: #0008ff;
+    --colorPositive3: #ff0000;
+    --colorPositive4: #5401fc;
+    --colorPositiveAnimation: color1;
+}
+
+.SpherePositiveEffect.show {
+    opacity: 1;
+    transition-duration: 2s;
+}
+
+.color {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  border-radius: 50%;
+  filter: blur(50px);
+  transition-duration: 2s;
+  animation: animation_1 8s infinite linear,
+             var(--colorPositiveAnimation) 32s infinite alternate;
+}
+
+.rot90 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(90deg);
+}
+
+.color2 {
+  --colorPositiveAnimation: color2;
+}
+
+.color3 {
+  --colorPositiveAnimation: color3;
+}
+
+.color4 {
+  --colorPositiveAnimation: color4;
+}
+
+@keyframes animation_1 {
+  0% { left: -35%; top: -35%; }
+  25% { top: -35%; left: 35%; }
+  50% { top: 35%; left: 35%; }
+  75% { top: 35%; left: -35%; }
+  100% { top: -35%; left: -35%; }
+}
+
+@keyframes color1 {
+  0% { background-color: var(--colorPositive1); }
+  25% { background-color: var(--colorPositive2); }
+  50% { background-color: var(--colorPositive3); }
+  75% { background-color: var(--colorPositive4); }
+  100% { background-color: var(--colorPositive1); }
+}
+
+@keyframes color2 {
+  0% { background-color: var(--colorPositive4); }
+  25% { background-color: var(--colorPositive1); }
+  50% { background-color: var(--colorPositive2); }
+  75% { background-color: var(--colorPositive3); }
+  100% { background-color: var(--colorPositive4); }
+}
+
+@keyframes color3 {
+  0% { background-color: var(--colorPositive3); }
+  25% { background-color: var(--colorPositive4); }
+  50% { background-color: var(--colorPositive1); }
+  75% { background-color: var(--colorPositive2); }
+  100% { background-color: var(--colorPositive3); }
+}
+
+@keyframes color4 {
+  0% { background-color: var(--colorPositive2); }
+  25% { background-color: var(--colorPositive3); }
+  50% { background-color: var(--colorPositive4); }
+  75% { background-color: var(--colorPositive1); }
+  100% { background-color: var(--colorPositive2); }
+}
