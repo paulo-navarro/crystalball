@@ -1,0 +1,75 @@
+* {
+    --thunder-duration: 0.3s;
+    --thunder-delay: 1s;
+    --thunder-repetition: 1;
+  }
+
+
+  #thunder {
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    width: auto;
+    height: 100%;
+  }
+  
+  #thunder path {
+    opacity: 0;
+  }
+
+  #thunder.svgAnimator #path881,
+  #thunder.svgAnimator #path883,
+  #thunder.svgAnimator #path887,
+  #thunder.svgAnimator #path895 {
+    animation: svgA_2 var(--thunder-duration) ease var(--thunder-delay) var(--thunder-repetition) alternate;
+  }
+
+  #thunder.svgAnimator #g927 {
+    animation: svgA_6 var(--thunder-duration) ease var(--thunder-delay) var(--thunder-repetition) alternate;
+  }
+
+  .thunderDefaultPath {
+    fill:none;stroke:#ffffff;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;
+  }
+
+  .thunderPath2 {
+    fill:none;stroke:#4698ff;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;
+  }
+
+
+  @keyframes svgA_2 {
+
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    30% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    55% {
+      opacity: 0;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes svgA_6 {
+    0% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+    }
