@@ -8,6 +8,7 @@ import SpherePositiveEffect from "./components/SpherePositiveEffect/SpherePositi
 import SphereNegativeEffect from "./components/SphereNegativeEffect/SphereNegativeEffect"
 import SphereNeutralEffect from "./components/SphereNeutralEffect/SphereNeutralEffect"
 import Thunder from "./components/Thunder/Thunder"
+import GlassShine from "./components/GlassShine/GlassShine"
 
 const getRandomMessageType = () => {
     const generateRand = Math.round(Math.floor(Math.random() * 301)) - 1
@@ -65,6 +66,8 @@ function Crystalball() {
             <ShineSphere show={isPositive}/>
             <LightRays show={isPositive} />
 
+            <Thunder show={isNegative} />
+
             <div
                 id="sphere"
                 className={`sphere ${decisionType ? decisionType : ""}`}
@@ -80,14 +83,13 @@ function Crystalball() {
                     <span className={isDecided ? 'decisionTypeShow': ''}>{`(${t(decisionType)})`}</span>
                 </div>
             </div>
-            <Thunder show={isNegative} />
 
             <button id="decisionButton" className={ isDecided ? 'show' : ''} onClick={decide}>
                 {t('resetButton')}
             </button>
         </div>
     </>
-  )
+    )
 }
 
 export default Crystalball
