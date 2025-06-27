@@ -1,19 +1,19 @@
 import React from "react"
 import './Thunder.css'
 
-function Thunder({show}) {
+function Thunder({show, reversed}) {
 
     if (!show) return null
     return (
         <svg
             id="thunder"
-            className={`${show ? 'svgAnimator' : ''}`}
+            className={`${show ? 'svgAnimator' : ''} ${reversed ? ' reversed' : ''}`}
             viewBox="0 0 132.29166 132.29167"
         >
         <defs id="defs2">
-          <filter style={{"colorInterpolationFilters": "sRGB"}} id="filter1547" x="-0.026199118" width="1.0523982" y="-0.024274286" height="1.0485486">
+        <filter style={{"colorInterpolationFilters": "sRGB"}} id="filter1547" x="-0.026199118" width="1.0523982" y="-0.024274286" height="1.0485486">
             <feGaussianBlur stdDeviation="1.4049374" id="feGaussianBlur1549"></feGaussianBlur>
-          </filter>
+        </filter>
         </defs>
         <g id="layer1" transform="translate(0,-164.70832)">
             <path

@@ -1,11 +1,15 @@
 
+.sphere.sphere.neutral {
+    background-image: url('/public/noise.gif');
+}
+
 .SphereNeutralEffect {
     opacity: 0;
     position: absolute;
     transition-duration: 2s;
     height: 100%;
     width: 100%;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.7);
 }
 
 .SphereNeutralEffect.show {

@@ -66,7 +66,7 @@ function Crystalball() {
             <ShineSphere show={isPositive}/>
             <LightRays show={isPositive} />
 
-            <Thunder show={isNegative} />
+            <Thunder show={isNegative} reversed={true} />
 
             <div
                 id="sphere"
