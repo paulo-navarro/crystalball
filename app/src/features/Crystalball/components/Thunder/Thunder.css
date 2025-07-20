@@ -1,5 +1,5 @@
 * {
-    --thunder-duration: 0.3s;
+    --thunder-duration: 0.1s;
     --thunder-delay: 1s;
     --thunder-repetition: 1;
   }
@@ -10,6 +10,7 @@
     top: 0;
     z-index: 0;
     width: auto;
+    max-width: 150%;
     height: 100%;
   }
 

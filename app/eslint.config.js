@@ -1,32 +1,32 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
-import json from "@eslint/json";
-import css from "@eslint/css";
-import { defineConfig } from "eslint/config";
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import pluginReact from 'eslint-plugin-react'
+import json from '@eslint/json'
+import css from '@eslint/css'
+import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        ecmaFeatures: { jsx: true },
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true }
       },
-      globals: globals.browser,
+      globals: globals.browser
     },
     plugins: {
       js,
-      "@typescript-eslint": tseslint.plugin,
-      react: pluginReact,
+      '@typescript-eslint': tseslint.plugin,
+      react: pluginReact
     },
     settings: {
       react: {
-        version: "detect",
-      },
+        version: 'detect'
+      }
     },
     rules: {
       'semi': ['error', 'never'],
@@ -39,27 +39,28 @@ export default defineConfig([
       'arrow-spacing': ['error', { before: true, after: true }],
       'indent': ['error', 2],
       'no-var': 'error',
-      'prefer-const': 'error'
+      'prefer-const': 'error',
+      'react/react-in-jsx-scope': 'off'
     },
     extends: [
-      "js/recommended",
+      'js/recommended',
       pluginReact.configs.flat.recommended,
-      tseslint.configs.recommended,
-    ],
+      tseslint.configs.recommended
+    ]
   },
   {
-    files: ["**/*.json"],
+    files: ['**/*.json'],
     plugins: { json },
-    language: "json/json",
-    extends: ["json/recommended"],
+    language: 'json/json',
+    extends: ['json/recommended']
   },
   {
-    files: ["**/*.css"],
+    files: ['**/*.css'],
     plugins: { css },
-    language: "css/css",
-    extends: ["css/recommended"],
+    language: 'css/css',
+    extends: ['css/recommended']
   },
   {
-    ignores: ["dist/**"],
-  },
-]);
+    ignores: ['dist/**']
+  }
+])

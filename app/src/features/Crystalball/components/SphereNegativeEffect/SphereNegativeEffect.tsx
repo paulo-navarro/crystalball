@@ -1,12 +1,11 @@
-import React from "react"
 import './SphereNegativeEffect.css'
 
-function SphereNegativeEffect({show}) {
-    return (
-        <div className={`SphereNegativeEffect ${show ? 'show' : ''}`}>
-
-        </div>
-    )
+interface SphereNegativeEffectProps {
+  show: boolean
 }
+
+const SphereNegativeEffect = ({ show }: SphereNegativeEffectProps) => (
+  <div className={`SphereNegativeEffect ${show ? 'show' : ''}`}></div>
+)
 
 export default SphereNegativeEffect

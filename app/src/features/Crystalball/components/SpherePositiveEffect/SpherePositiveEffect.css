@@ -27,7 +27,7 @@
   filter: blur(50px);
   transition-duration: 2s;
   animation: animation_1 8s infinite linear,
-             var(--colorPositiveAnimation) 32s infinite alternate;
+            var(--colorPositiveAnimation) 32s infinite alternate;
 }
 
 .rot90 {

@@ -85,12 +85,13 @@ body,
 
 /* Sphere Styles */
 .sphere {
+  --sphere-ray: 250px;
   position: relative;
   z-index: 1;
   width: 95%;
-  max-width: 300px;
-  max-height: 300px;
-  flex: 0 0 300px;
+  max-width: var(--sphere-ray);
+  max-height: var(--sphere-ray);
+  flex: 0 0 var(--sphere-ray);
   color: var(--color-decision-text);
   background-color: #000;
   border-radius: 100%;
@@ -102,11 +103,15 @@ body,
 }
 @media (width > 409px) {
   .sphere {
-    max-width: 400px;
-    max-height: 400px;
-    flex: 0 0 400px;
+    --sphere-ray: 300px;
   }
 }
+@media (width > 509px) {
+  .sphere {
+    --sphere-ray: 400px;
+  }
+}
+
 .sphere.positive,
 .sphere.neutral,
 .sphere.negative {
@@ -129,8 +134,20 @@ body,
   text-align: center;
   font-family: "Yusei Magic", sans-serif;
   font-weight: 400;
-  font-size: 30px;
+  font-size: 22px;
   font-style: normal;
+}
+
+@media screen and (min-width: 409px) {
+  .decision {
+    font-size: 25px;
+  }
+}
+
+@media screen and (min-width: 509px) {
+  .decision {
+    font-size: 30px;
+  }
 }
 
 #decision span {
