@@ -168,14 +168,15 @@ body,
 #decisionButton {
   z-index: 1;
   position: absolute;
-  bottom: 15%;
-  margin: 50px 15px 0;
+  bottom: 0;
+  margin: 0;
   padding: 20px;
+  width: 100%;
   font-family: "Yusei Magic", sans-serif;
   font-size: 20px;
   font-weight: 200;
   border: none;
-  border-radius: 20px;
+  border-radius: 0;
   background-color: #b250b727;
   color: #fff;
   cursor: pointer;
