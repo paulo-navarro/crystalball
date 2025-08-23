@@ -41,8 +41,13 @@ function Crystalball () {
   const { t: negativeMessagesT } = useTranslation('negative-messages')
 
   const lastShakeTime = useRef(0)
-  const shakeThreshold = 5
-  const shakeTimeThreshold = 500
+  const gravity = useRef({ x: 0, y: 0, z: 0 })
+  const peaks = useRef<number[]>([])
+  const alpha = 0.8
+  const shakeMagnitudeThreshold = 12
+  const shakeTimeThreshold = 1000
+  const peakWindowMs = 500
+  const peaksRequired = 2
 
   const isPositive = useMemo(() => decisionType === 'positive', [decisionType])
   const isNeutral = useMemo(() => decisionType === 'neutral', [decisionType])
@@ -74,36 +79,70 @@ function Crystalball () {
 
   useEffect(() => {
     const handleDeviceMotion = (event: DeviceMotionEvent) => {
-      const acceleration = event.accelerationIncludingGravity
-      if (!acceleration) return
+      const hasLinear = !!event.acceleration && (
+        event.acceleration!.x !== null ||
+        event.acceleration!.y !== null ||
+        event.acceleration!.z !== null
+      )
 
-      const { x, y, z } = acceleration
-      const magnitude = Math.sqrt(x! * x! + y! * y! + z! * z!)
-      
-      const currentTime = Date.now()
-      
-      if (magnitude > shakeThreshold && 
-          currentTime - lastShakeTime.current > shakeTimeThreshold) {
-        lastShakeTime.current = currentTime
-        decide()
+      let x = 0, y = 0, z = 0
+
+      if (hasLinear) {
+        x = event.acceleration!.x ?? 0
+        y = event.acceleration!.y ?? 0
+        z = event.acceleration!.z ?? 0
+      } else if (event.accelerationIncludingGravity) {
+        const ax = event.accelerationIncludingGravity.x ?? 0
+        const ay = event.accelerationIncludingGravity.y ?? 0
+        const az = event.accelerationIncludingGravity.z ?? 0
+
+        gravity.current.x = alpha * gravity.current.x + (1 - alpha) * ax
+        gravity.current.y = alpha * gravity.current.y + (1 - alpha) * ay
+        gravity.current.z = alpha * gravity.current.z + (1 - alpha) * az
+
+        x = ax - gravity.current.x
+        y = ay - gravity.current.y
+        z = az - gravity.current.z
+      } else {
+        return
+      }
+
+      const magnitude = Math.sqrt(x * x + y * y + z * z)
+      const now = Date.now()
+
+      if (magnitude > shakeMagnitudeThreshold) {
+        peaks.current.push(now)
+        const cutoff = now - peakWindowMs
+        while (peaks.current.length && peaks.current[0] < cutoff) {
+          peaks.current.shift()
+        }
+        if (peaks.current.length >= peaksRequired && now - lastShakeTime.current > shakeTimeThreshold) {
+          lastShakeTime.current = now
+          peaks.current = []
+          decide()
+        }
+      } else {
+        const cutoff = now - peakWindowMs
+        while (peaks.current.length && peaks.current[0] < cutoff) {
+          peaks.current.shift()
+        }
       }
     }
 
     const requestPermission = async () => {
-      const DeviceMotionEventAny = DeviceMotionEvent as any
-      
-      if (typeof DeviceMotionEventAny.requestPermission === 'function') {
+      const dme = DeviceMotionEvent as unknown as { requestPermission?: () => Promise<'granted' | 'denied' | 'prompt'> }
+
+      if (typeof dme?.requestPermission === 'function') {
         try {
-          const permissionState = await DeviceMotionEventAny.requestPermission()
+          const permissionState = await dme.requestPermission()
           if (permissionState === 'granted') {
-            window.addEventListener('devicemotion', handleDeviceMotion)
+            window.addEventListener('devicemotion', handleDeviceMotion, { passive: true })
           }
         } catch (error) {
           console.error('Error requesting device motion permission:', error)
         }
       } else {
-        // For non-iOS devices or older iOS versions
-        window.addEventListener('devicemotion', handleDeviceMotion)
+        window.addEventListener('devicemotion', handleDeviceMotion, { passive: true })
       }
     }
 
