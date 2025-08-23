@@ -2,7 +2,7 @@
 #lightRays {
   position: absolute;
   z-index: 0;
-  margin: 50px auto auto -5px;
+  margin: -200px auto auto -5px;
   width: 200%;
   height: 200%;
   fill: #fff;
@@ -11,6 +11,11 @@
   animation: none;
   overflow: hidden;
   animation: rotate 60s infinite linear;
+}
+@media (width > 509px) {
+  #lightRays {
+    margin: -150px auto auto -5px;
+  }
 }
 
 #lightRays.show {

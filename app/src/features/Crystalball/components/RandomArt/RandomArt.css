@@ -7,11 +7,16 @@
     top: 0;
     left: 50%;
     height: 100%;
-    width: 200px;
+    width: 150px;
     fill: rgba(255,255,255,0.2);
     stroke:rgba(255,255,255,0.2);
     stroke-linecap:round;
     transform: translate(-50%, 0);
+  }
+  @media screen and (width > 409px) {
+    .art {
+      width: 200px;
+    }
   }
   
   .art_eye {

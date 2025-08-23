@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import LightRays from './components/LightRays/LightRays'
 import RandomArt from './components/RandomArt/RandomArt'
@@ -10,7 +10,20 @@ import SphereNeutralEffect from './components/SphereNeutralEffect/SphereNeutralE
 import NegativeBackground from './components/NegativeBackground/NegativeBackground'
 
 type decisionTypeT = 'positive' | 'neutral' | 'negative' | null
+
+const getUrlParam = (paramName: string): string | null => {
+  const urlParams = new URLSearchParams(window.location.search)
+  return urlParams.get(paramName)
+}
+
 const getRandomMessageType = () => {
+  const predestinated = getUrlParam('x')
+  console.log('x', predestinated)
+  
+  if (predestinated === '0') return 'negative'
+  if (predestinated === '1') return 'neutral'
+  if (predestinated === '2') return 'positive'
+
   const generateRand = Math.round(Math.floor(Math.random() * 301)) - 1
 
   if (generateRand < 100) return 'positive'
@@ -20,13 +33,16 @@ const getRandomMessageType = () => {
 }
 
 function Crystalball () {
-
   const [decision, setDecision] = useState('')
   const [decisionType, setDecisionType] = useState<decisionTypeT>(null)
   const { t } = useTranslation('crystalball')
   const { t: positiveMessagesT } = useTranslation('positive-messages')
   const { t: neutralMessagesT } = useTranslation('neutral-messages')
   const { t: negativeMessagesT } = useTranslation('negative-messages')
+
+  const lastShakeTime = useRef(0)
+  const shakeThreshold = 5
+  const shakeTimeThreshold = 500
 
   const isPositive = useMemo(() => decisionType === 'positive', [decisionType])
   const isNeutral = useMemo(() => decisionType === 'neutral', [decisionType])
@@ -56,13 +72,51 @@ function Crystalball () {
     setDecision(newMessage)
   }
 
+  useEffect(() => {
+    const handleDeviceMotion = (event: DeviceMotionEvent) => {
+      const acceleration = event.accelerationIncludingGravity
+      if (!acceleration) return
+
+      const { x, y, z } = acceleration
+      const magnitude = Math.sqrt(x! * x! + y! * y! + z! * z!)
+      
+      const currentTime = Date.now()
+      
+      if (magnitude > shakeThreshold && 
+          currentTime - lastShakeTime.current > shakeTimeThreshold) {
+        lastShakeTime.current = currentTime
+        decide()
+      }
+    }
+
+    const requestPermission = async () => {
+      const DeviceMotionEventAny = DeviceMotionEvent as any
+      
+      if (typeof DeviceMotionEventAny.requestPermission === 'function') {
+        try {
+          const permissionState = await DeviceMotionEventAny.requestPermission()
+          if (permissionState === 'granted') {
+            window.addEventListener('devicemotion', handleDeviceMotion)
+          }
+        } catch (error) {
+          console.error('Error requesting device motion permission:', error)
+        }
+      } else {
+        // For non-iOS devices or older iOS versions
+        window.addEventListener('devicemotion', handleDeviceMotion)
+      }
+    }
+
+    requestPermission()
+
+    return () => {
+      window.removeEventListener('devicemotion', handleDeviceMotion)
+    }
+  }, [])
+
   return (
     <>
       <div className={`wrapper ${decisionType ? decisionType : ''}`}>
-        {/* <div className="header">
-                <p className={ !isDecided ? 'show' : ''}>{t('instructions')}</p>
-            </div> */}
-
         <ShineSphere show={isPositive}/>
         <LightRays show={isPositive} />
 

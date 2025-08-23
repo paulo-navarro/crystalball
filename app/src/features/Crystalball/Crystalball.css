@@ -116,8 +116,18 @@ body,
 .sphere.neutral,
 .sphere.negative {
   transform: scale(1);
+  margin-bottom: 200px;
   transition-duration: 2s;
   animation: sphereGlow 0.3s 1 linear;
+}
+
+@media (width > 509px) {
+  .sphere.positive,
+  .sphere.neutral,
+  .sphere.negative {
+    margin-bottom: 100px;
+    --sphere-ray: 400px;
+  }
 }
 
 /* Decision Elements */
@@ -138,13 +148,13 @@ body,
   font-style: normal;
 }
 
-@media screen and (min-width: 409px) {
+@media screen and (width > 409px) {
   .decision {
     font-size: 25px;
   }
 }
 
-@media screen and (min-width: 509px) {
+@media screen and (width > 509px) {
   .decision {
     font-size: 30px;
   }
