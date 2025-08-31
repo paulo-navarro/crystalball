@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import Thunder from '../Thunder/Thunder'
+import Ghost from '../Ghost/Ghost'
 
 interface NegativeBackgroundPropsI {
   show: boolean
@@ -8,10 +9,15 @@ interface NegativeBackgroundPropsI {
 function NegativeBackground ({ show }: NegativeBackgroundPropsI) {
   const [showLeftThunder, setShowLeftThunder] = useState(false)
   const [showRightThunder, setShowRightThunder] = useState(false)
+  const [pageWidth, setPageWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 0
+  )
+  const [ghostsNumber, setGhostsNumber] = useState<number>(
+    typeof window !== 'undefined' ? pageWidth / 20 : 0
+  )
 
-  // Função para gerar delay randômico entre 3 e 30 segundos
-  const getRandomDelay = useCallback(() => {
-    return Math.random() * 10000 // 3000ms a 30000ms
+  const getRandomDelay = useCallback((max = 10000) => {
+    return Math.random() * max
   }, [])
 
   // Função para executar um ciclo de raio
@@ -50,10 +56,22 @@ function NegativeBackground ({ show }: NegativeBackgroundPropsI) {
     }
   }, [show, executeThunderCycle, getRandomDelay])
 
+  useEffect(() => {
+    const onResize = () => {
+      setPageWidth(window.innerWidth)
+      setGhostsNumber(window.innerWidth / 20)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
   if (!show) return null
     
   return (
     <>
+      {Array.from({ length: ghostsNumber }).map((_, index) => (
+        <Ghost key={index} left={pageWidth / 100 * index} reversed={index % 2 === 0} />
+      ))}
       <Thunder show={showLeftThunder} reversed={true} />
       <Thunder show={showRightThunder} reversed={false} />
     </>
