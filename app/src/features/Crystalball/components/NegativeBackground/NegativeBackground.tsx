@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback } from 'react'
 import Thunder from '../Thunder/Thunder'
 import Ghost from '../Ghost/Ghost'
 
+const getGhostNumber = () => Math.floor(window.innerWidth / 40)
+
 interface NegativeBackgroundPropsI {
   show: boolean
 }
@@ -9,16 +11,10 @@ interface NegativeBackgroundPropsI {
 function NegativeBackground ({ show }: NegativeBackgroundPropsI) {
   const [showLeftThunder, setShowLeftThunder] = useState(false)
   const [showRightThunder, setShowRightThunder] = useState(false)
-  const [pageWidth, setPageWidth] = useState<number>(
-    typeof window !== 'undefined' ? window.innerWidth : 0
-  )
-  const [ghostsNumber, setGhostsNumber] = useState<number>(
-    typeof window !== 'undefined' ? pageWidth / 20 : 0
-  )
 
-  const getRandomDelay = useCallback((max = 10000) => {
-    return Math.random() * max
-  }, [])
+  const [ghostsNumber, setGhostsNumber] = useState<number>(0)
+
+  const getRandomDelay = useCallback((max = 10000) => Math.random() * max, [])
 
   // Função para executar um ciclo de raio
   const executeThunderCycle = useCallback((isLeft: boolean) => {
@@ -57,21 +53,18 @@ function NegativeBackground ({ show }: NegativeBackgroundPropsI) {
   }, [show, executeThunderCycle, getRandomDelay])
 
   useEffect(() => {
-    const onResize = () => {
-      setPageWidth(window.innerWidth)
-      setGhostsNumber(window.innerWidth / 20)
-    }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    setGhostsNumber(getGhostNumber())
   }, [])
 
   if (!show) return null
     
   return (
     <>
-      {Array.from({ length: ghostsNumber }).map((_, index) => (
-        <Ghost key={index} left={pageWidth / 100 * index} reversed={index % 2 === 0} />
-      ))}
+      {Array.from({ length: ghostsNumber }).map((_, index) => {
+        const step = 100 / Math.max(ghostsNumber + 1, 1)
+        const leftPercent = step * (index + 1)
+        return <Ghost key={index} left={leftPercent} reversed={index % 2 === 0} />
+      })}
       <Thunder show={showLeftThunder} reversed={true} />
       <Thunder show={showRightThunder} reversed={false} />
     </>
