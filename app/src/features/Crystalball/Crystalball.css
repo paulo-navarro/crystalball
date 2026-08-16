@@ -52,8 +52,12 @@ body,
 }
 
 .wrapper.negative {
-  --color-page: #1a001f;
+  --color-page: #0a1a0e;
   --color-decision-text: #00ff00;
+}
+
+.wrapper.negative .decision {
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .header {

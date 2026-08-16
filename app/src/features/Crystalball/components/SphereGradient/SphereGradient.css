@@ -1,0 +1,98 @@
+
+.SphereGradient {
+  opacity: 0;
+  position: absolute;
+  transition-duration: 2s;
+  height: 100%;
+  width: 100%;
+  /* Sobrescritos pelo style inline do componente */
+  --sphereGradientBase: #fff;
+  --sphereGradientOpacity: 0.5;
+  --sphereGradientColor1: #ff00ea;
+  --sphereGradientColor2: #0008ff;
+  --sphereGradientColor3: #ff0000;
+  --sphereGradientColor4: #5401fc;
+  --sphereGradientColorAnimation: colorCycle1;
+  background-color: var(--sphereGradientBase);
+}
+
+.SphereGradient.show {
+  opacity: 1;
+  transition-duration: 2s;
+}
+
+.sphereGradientColor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: var(--sphereGradientOpacity);
+  border-radius: 50%;
+  filter: blur(50px);
+  transition-duration: 2s;
+  animation: sphereGradientOrbit 8s infinite linear,
+             var(--sphereGradientColorAnimation) 32s infinite alternate;
+}
+
+/* Órbita no sentido contrário, sem inverter o ciclo de cores */
+.SphereGradient.reverse .sphereGradientColor {
+  animation-direction: reverse, alternate;
+}
+
+.sphereGradientRot90 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(90deg);
+}
+
+.colorCycle2 {
+  --sphereGradientColorAnimation: colorCycle2;
+}
+
+.colorCycle3 {
+  --sphereGradientColorAnimation: colorCycle3;
+}
+
+.colorCycle4 {
+  --sphereGradientColorAnimation: colorCycle4;
+}
+
+@keyframes sphereGradientOrbit {
+  0% { left: -35%; top: -35%; }
+  25% { top: -35%; left: 35%; }
+  50% { top: 35%; left: 35%; }
+  75% { top: 35%; left: -35%; }
+  100% { top: -35%; left: -35%; }
+}
+
+@keyframes colorCycle1 {
+  0% { background-color: var(--sphereGradientColor1); }
+  25% { background-color: var(--sphereGradientColor2); }
+  50% { background-color: var(--sphereGradientColor3); }
+  75% { background-color: var(--sphereGradientColor4); }
+  100% { background-color: var(--sphereGradientColor1); }
+}
+
+@keyframes colorCycle2 {
+  0% { background-color: var(--sphereGradientColor4); }
+  25% { background-color: var(--sphereGradientColor1); }
+  50% { background-color: var(--sphereGradientColor2); }
+  75% { background-color: var(--sphereGradientColor3); }
+  100% { background-color: var(--sphereGradientColor4); }
+}
+
+@keyframes colorCycle3 {
+  0% { background-color: var(--sphereGradientColor3); }
+  25% { background-color: var(--sphereGradientColor4); }
+  50% { background-color: var(--sphereGradientColor1); }
+  75% { background-color: var(--sphereGradientColor2); }
+  100% { background-color: var(--sphereGradientColor3); }
+}
+
+@keyframes colorCycle4 {
+  0% { background-color: var(--sphereGradientColor2); }
+  25% { background-color: var(--sphereGradientColor3); }
+  50% { background-color: var(--sphereGradientColor4); }
+  75% { background-color: var(--sphereGradientColor1); }
+  100% { background-color: var(--sphereGradientColor2); }
+}

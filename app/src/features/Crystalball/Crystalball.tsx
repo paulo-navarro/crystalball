@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { TFunction } from 'i18next'
 import LightRays from './components/LightRays/LightRays'
 import RandomArt from './components/RandomArt/RandomArt'
 import ShineSphere from './components/ShineSphere/ShineSphere'
@@ -36,7 +37,7 @@ const getRandomMessageType = () => {
 function Crystalball () {
   const [decision, setDecision] = useState('')
   const [decisionType, setDecisionType] = useState<decisionTypeT>(null)
-  const { t } = useTranslation('crystalball')
+  const { t, i18n } = useTranslation('crystalball')
   const { t: positiveMessagesT } = useTranslation('positive-messages')
   const { t: neutralMessagesT } = useTranslation('neutral-messages')
   const { t: negativeMessagesT } = useTranslation('negative-messages')
@@ -45,6 +46,19 @@ function Crystalball () {
   const isNeutral = useMemo(() => decisionType === 'neutral', [decisionType])
   const isNegative = useMemo(() => decisionType === 'negative', [decisionType])
   const isDecided = useMemo(() => !!decisionType, [decisionType])
+
+  // Sorteia dentro do total real de mensagens carregadas: os arquivos de cada
+  // idioma têm tamanhos diferentes e chaves ausentes fariam o i18next devolver
+  // a própria chave como profecia.
+  const getRandomMessage = useCallback((namespace: string, translate: TFunction) => {
+    const language = i18n.languages?.find((lng) => !!i18n.getResourceBundle(lng, namespace))
+    const bundle = language ? i18n.getResourceBundle(language, namespace) : null
+    const total = bundle ? Object.keys(bundle).length : 0
+
+    if (!total) return ''
+
+    return translate(Math.floor(Math.random() * total).toString())
+  }, [i18n])
 
   const decide = () => {
     if (decision !== '') {
@@ -56,13 +70,13 @@ function Crystalball () {
     const newDecisionType = getRandomMessageType()
     let newMessage = ''
     if (newDecisionType === 'positive') {
-      newMessage = positiveMessagesT(Math.floor(Math.random() * 201).toString())
+      newMessage = getRandomMessage('positive-messages', positiveMessagesT)
     }
     if (newDecisionType === 'neutral') {
-      newMessage = neutralMessagesT(Math.floor(Math.random() * 101).toString())
+      newMessage = getRandomMessage('neutral-messages', neutralMessagesT)
     }
     if (newDecisionType === 'negative') {
-      newMessage = negativeMessagesT(Math.floor(Math.random() * 101).toString())
+      newMessage = getRandomMessage('negative-messages', negativeMessagesT)
     }
     
     setDecisionType(newDecisionType)

@@ -1,22 +1,22 @@
-import './SpherePositiveEffect.css'
+import SphereGradient from '../SphereGradient/SphereGradient'
 
 interface SpherePositiveEffectProps {
   show: boolean
 }
 
+const POSITIVE_COLORS: [string, string, string, string] = [
+  '#ff00ea',
+  '#0008ff',
+  '#ff0000',
+  '#5401fc'
+]
+
 const SpherePositiveEffect = ({ show }: SpherePositiveEffectProps) => (
-  <div className={`SpherePositiveEffect ${show ? 'show' : ''}`}>
-    <div className={`color color1 ${show ? 'show' : ''}`}></div>
-    <div className="rot90">
-      <div className="color color2"></div>
-      <div className="rot90">
-        <div className="color color3"></div>
-        <div className="rot90">
-          <div className="color color4"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <SphereGradient
+    show={show}
+    baseColor="#fff"
+    colors={POSITIVE_COLORS}
+  />
 )
 
 export default SpherePositiveEffect
