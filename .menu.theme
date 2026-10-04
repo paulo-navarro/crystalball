@@ -1,0 +1,4 @@
+# Menu theme for this project (see THEME_* in ./menu)
+THEME_HEADER=40    # green banner
+THEME_SEL_BG=40    # green highlight
+THEME_SEL_FG=16    # black text on it
