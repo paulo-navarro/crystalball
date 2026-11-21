@@ -109,7 +109,10 @@ _load_commands() {   # source every command file so helpers are shared
     local f
     for f in "$CMD_DIR"/*.sh "$CMD_DIR"/*/*.sh; do
         # shellcheck disable=SC1090
-        [[ -f "$f" ]] && source "$f"
+        # `continue`, não `&&`: sem subpastas em menu_cmd/ o padrão */*.sh não casa com nada, o teste falha
+        # na última volta e o `set -e` matava o menu antes de rodar o comando.
+        [[ -f "$f" ]] || continue
+        source "$f"
     done
 }
 
